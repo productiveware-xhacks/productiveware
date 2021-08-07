@@ -56,3 +56,8 @@ def remove_target_folder(path):
 		pass
 	else:
 		_write_config(config)
+
+def clear_target_folders():
+	config = _read_config()
+	config["target_folders"] = []
+	_write_config(config)
