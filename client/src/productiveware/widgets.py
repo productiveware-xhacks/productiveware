@@ -1,6 +1,15 @@
 from PySide6 import QtCore, QtWidgets, QtGui
 
 
+# class MainWidget(QtWidgets.QWidget):
+#     def __init__(self, username, password):
+#         super().__init__()
+
+#         self.setWindowTitle("productiveware")
+
+#         self.pw_profile = QtWidgets.QPushButton()
+
+
 class LoginWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
