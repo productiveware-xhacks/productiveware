@@ -16,8 +16,8 @@ const WebpackDefinePluginConfig = new webpack.DefinePlugin({
 });
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: resolve('client/index.html'),
-  favicon: resolve('client/assets/icons/favicon.ico'),
+  template: resolve('website/index.html'),
+  favicon: resolve('website/assets/icons/favicon.ico'),
   filename: 'index.html',
   inject: 'body',
 });
@@ -30,9 +30,9 @@ const CleanWebpackPluginConfig = new CleanWebpackPlugin({
 module.exports = {
   devtool: 'source-map',
   entry: [
-    resolve('client/styles/index.scss'),
-    resolve('client/assets/index.js'),
-    resolve('client/index.js'),
+    resolve('website/styles/index.scss'),
+    resolve('website/assets/index.js'),
+    resolve('website/index.js'),
   ],
   output: {
     filename: isDev ? '[name].js' : '[name].[hash].js',
@@ -41,22 +41,22 @@ module.exports = {
   },
   resolve: {
     alias: {
-      _client: resolve('client'),
-      _assets: resolve('client/assets/'),
-      _styles: resolve('client/styles/'),
-      _utils: resolve('client/utils/'),
-      _api: resolve('client/api/'),
-      _hooks: resolve('client/hooks/'),
-      _atoms: resolve('client/components/atoms/'),
-      _molecules: resolve('client/components/molecules/'),
-      _organisms: resolve('client/components/organisms/'),
-      _templates: resolve('client/components/templates/'),
-      _pages: resolve('client/components/pages/'),
-      _environment: resolve('client/components/environment/'),
-      _store: resolve('client/store/'),
-      _actions: resolve('client/store/actions/'),
-      _reducers: resolve('client/store/reducers/'),
-      _thunks: resolve('client/store/thunks/'),
+      _client: resolve('website'),
+      _assets: resolve('website/assets/'),
+      _styles: resolve('website/styles/'),
+      _utils: resolve('website/utils/'),
+      _api: resolve('website/api/'),
+      _hooks: resolve('website/hooks/'),
+      _atoms: resolve('website/components/atoms/'),
+      _molecules: resolve('website/components/molecules/'),
+      _organisms: resolve('website/components/organisms/'),
+      _templates: resolve('website/components/templates/'),
+      _pages: resolve('website/components/pages/'),
+      _environment: resolve('website/components/environment/'),
+      _store: resolve('website/store/'),
+      _actions: resolve('website/store/actions/'),
+      _reducers: resolve('website/store/reducers/'),
+      _thunks: resolve('website/store/thunks/'),
     },
   },
   module: {
@@ -64,7 +64,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
-        include: [resolve('client')],
+        include: [resolve('website')],
       },
       {
         test: /\.css$/,
