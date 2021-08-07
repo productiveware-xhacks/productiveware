@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import R from 'ramda';
+import * as R from 'ramda';
 
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';

@@ -1,8 +1,9 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import R from 'ramda';
+import * as R from 'ramda';
 
 import Menu from 'react-bulma-companion/lib/Menu';
 import Box from 'react-bulma-companion/lib/Box';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router';
 import ReactNotification from 'react-notifications-component';
 import { useDispatch } from 'react-redux';
-import R from 'ramda';
+import * as R from 'ramda';
 
 import { attemptGetUser } from '_thunks/user';
 

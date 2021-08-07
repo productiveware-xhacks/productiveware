@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect }  from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import R from 'ramda';
+import * as R from 'ramda';
 
 import Navbar from 'react-bulma-companion/lib/Navbar';
 import Container from 'react-bulma-companion/lib/Container';

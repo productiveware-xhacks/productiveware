@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import R from 'ramda';
+import * as R from 'ramda';
 
 import Todo from '_molecules/Todo';
 

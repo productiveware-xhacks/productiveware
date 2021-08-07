@@ -1,8 +1,9 @@
+
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import R from 'ramda';
+import * as R from 'ramda';
 
 import { attemptLogout } from '_thunks/auth';
 
