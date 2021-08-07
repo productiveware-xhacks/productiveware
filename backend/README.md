@@ -9,6 +9,10 @@
 
 This is the backend for the website. It controls and communicates with a MongoDB database which holds the To-Do(s) of each user, their columns, cards, etc.
 
-# Starting
+## Setting Up
+
+1. Need to install mongodb refer to [here](https://docs.mongodb.com/manual/installation/) for installation instructions based off of your installation e\.g\., windows, linux, etc\.
+
+## Starting
 
 Run `npm start` to start the backend.
