@@ -19,5 +19,5 @@ cd productiveware/py-app
 
 pip install -r requirements.txt
 
-cxfreeze launch.py --target-dir dist --base-name Win32GUI --include-modules atexit --icon productiveware/widgets/res/productiveware.png
+cxfreeze launch.py --target-dir dist --base-name Win32GUI --icon productiveware/widgets/res/productiveware.png
 ```
