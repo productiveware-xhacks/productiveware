@@ -15,9 +15,8 @@ export default function AddTodo() {
 
   const handleAddTodo = () => {
     if (text) {
-      let date = Date.now();
-      console.log(date)
-      dispatch(attemptAddTodo(text, date));
+      // creating a new todo with the text within the input tag and a date timestamp (to be changed later)
+      dispatch(attemptAddTodo(text, Date.now()));
       setText('');
     }
   };
