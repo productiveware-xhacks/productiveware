@@ -1,7 +1,7 @@
 {
-  "name": "mern-boilerplate",
-  "version": "0.6.0",
-  "description": "A full MERN stack boilerplate",
+  "name": "productiveware",
+  "version": "0.5.1",
+  "description": "Productiveware, ransomware that forces you to be productive",
   "main": "server/index.js",
   "scripts": {
     "build": "./scripts/build-prd.sh",
@@ -21,11 +21,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/djizco/mern-boilerplate.git"
-  },
-  "author": {
-    "name": "Federico Rojas",
-    "email": "djizco@yahoo.com",
-    "url": "https://github.com/djizco"
   },
   "license": "MIT",
   "bugs": {
