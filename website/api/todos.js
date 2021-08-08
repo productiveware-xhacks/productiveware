@@ -12,6 +12,12 @@ export const getTodos = () =>
     .then(handleSuccess)
     .catch(handleError);
 
+export const overdueTodo = () =>
+  request.get('/api/todos/overdue')
+    .send()
+    .then(handleSuccess)
+    .catch(handleError);
+    
 export const putToggleCompleteTodo = info =>
   request.put('/api/todos/complete')
     .send(info)

@@ -31,6 +31,19 @@ router.get('/', requireAuth, (req, res) => {
   });
 });
 
+router.get('/overdue', requireAuth, (req, res) => {
+  Todo.find({ user: req.user.id }, { __v: 0, user: 0 }, (err, todos) => {
+    if (err) {
+      res.status(400).send({ message: 'Get users failed', err });
+    } else {
+      const overdue = todos.filter(todo => {
+        return todo.due_at < new Date()
+      });
+      res.send({ message: 'Overdue todos retrieved successfully', todos: overdue });
+    }
+  });
+});
+
 router.post('/', requireAuth, (req, res) => {
   req.body.user = req.user.id;
 
