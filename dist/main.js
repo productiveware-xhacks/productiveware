@@ -2500,6 +2500,45 @@ exports.svgPathData = svgPathData;
 
 /***/ }),
 
+/***/ "./node_modules/@fortawesome/free-regular-svg-icons/faCircle.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@fortawesome/free-regular-svg-icons/faCircle.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var prefix = 'far';
+var iconName = 'circle';
+var width = 512;
+var height = 512;
+var ligatures = [];
+var unicode = 'f111';
+var svgPathData = 'M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z';
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    ligatures,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faCircle = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = ligatures;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+
+/***/ }),
+
 /***/ "./node_modules/@fortawesome/free-regular-svg-icons/faSquare.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/@fortawesome/free-regular-svg-icons/faSquare.js ***!
@@ -2529,6 +2568,45 @@ exports.definition = {
   ]};
 
 exports.faSquare = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = ligatures;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+
+/***/ }),
+
+/***/ "./node_modules/@fortawesome/free-regular-svg-icons/faTimesCircle.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@fortawesome/free-regular-svg-icons/faTimesCircle.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var prefix = 'far';
+var iconName = 'times-circle';
+var width = 512;
+var height = 512;
+var ligatures = [];
+var unicode = 'f057';
+var svgPathData = 'M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z';
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    ligatures,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faTimesCircle = exports.definition;
 exports.prefix = prefix;
 exports.iconName = iconName;
 exports.width = width;
@@ -3808,14 +3886,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/formatDistanceToNow/index.js");
 /* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/parseISO/index.js");
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons_faTrashAlt__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faTrashAlt */ "./node_modules/@fortawesome/free-solid-svg-icons/faTrashAlt.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons_faBan__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faBan */ "./node_modules/@fortawesome/free-solid-svg-icons/faBan.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons_faPencilAlt__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faPencilAlt */ "./node_modules/@fortawesome/free-solid-svg-icons/faPencilAlt.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons_faSave__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faSave */ "./node_modules/@fortawesome/free-solid-svg-icons/faSave.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons_faTrashAlt__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faTrashAlt */ "./node_modules/@fortawesome/free-solid-svg-icons/faTrashAlt.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons_faBan__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faBan */ "./node_modules/@fortawesome/free-solid-svg-icons/faBan.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons_faPencilAlt__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faPencilAlt */ "./node_modules/@fortawesome/free-solid-svg-icons/faPencilAlt.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons_faSave__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faSave */ "./node_modules/@fortawesome/free-solid-svg-icons/faSave.js");
 /* harmony import */ var _fortawesome_free_regular_svg_icons_faSquare__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons/faSquare */ "./node_modules/@fortawesome/free-regular-svg-icons/faSquare.js");
+/* harmony import */ var _fortawesome_free_regular_svg_icons_faCircle__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons/faCircle */ "./node_modules/@fortawesome/free-regular-svg-icons/faCircle.js");
+/* harmony import */ var _fortawesome_free_regular_svg_icons_faTimesCircle__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons/faTimesCircle */ "./node_modules/@fortawesome/free-regular-svg-icons/faTimesCircle.js");
 /* harmony import */ var _fortawesome_free_regular_svg_icons_faCheckSquare__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons/faCheckSquare */ "./node_modules/@fortawesome/free-regular-svg-icons/faCheckSquare.js");
 /* harmony import */ var _thunks_todos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! _thunks/todos */ "./website/store/thunks/todos.js");
 /* harmony import */ var _organisms_ConfirmModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! _organisms/ConfirmModal */ "./website/components/organisms/ConfirmModal/index.js");
+
+
 
 
 
@@ -3845,6 +3927,7 @@ function Todo({
   id,
   text,
   completed,
+  encrypted,
   createdAt,
   updatedAt,
   dueAt
@@ -3899,14 +3982,36 @@ function Todo({
     className: "media-left"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "icon",
+    title: "Completed?",
     onClick: toggleCompleteTodo,
     onKeyPress: toggleCompleteTodo
   }, completed ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
     icon: _fortawesome_free_regular_svg_icons_faCheckSquare__WEBPACK_IMPORTED_MODULE_8__.faCheckSquare,
-    size: "lg"
+    size: "lg",
+    style: {
+      color: "green"
+    }
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
     icon: _fortawesome_free_regular_svg_icons_faSquare__WEBPACK_IMPORTED_MODULE_9__.faSquare,
-    size: "lg"
+    size: "lg",
+    style: {
+      color: "green"
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "icon space-right",
+    title: "Encrypted a file?"
+  }, encrypted ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
+    icon: _fortawesome_free_regular_svg_icons_faTimesCircle__WEBPACK_IMPORTED_MODULE_10__.faTimesCircle,
+    size: "lg",
+    style: {
+      color: "red"
+    }
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
+    icon: _fortawesome_free_regular_svg_icons_faCircle__WEBPACK_IMPORTED_MODULE_11__.faCircle,
+    size: "lg",
+    style: {
+      color: "red"
+    }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "media-content"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -3932,28 +4037,28 @@ function Todo({
     onClick: handleUpdateTodo,
     onKeyPress: handleUpdateTodo
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
-    icon: _fortawesome_free_solid_svg_icons_faSave__WEBPACK_IMPORTED_MODULE_10__.faSave,
+    icon: _fortawesome_free_solid_svg_icons_faSave__WEBPACK_IMPORTED_MODULE_12__.faSave,
     size: "lg"
   })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "icon space-right",
     onClick: editTodo,
     onKeyPress: editTodo
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
-    icon: _fortawesome_free_solid_svg_icons_faPencilAlt__WEBPACK_IMPORTED_MODULE_11__.faPencilAlt,
+    icon: _fortawesome_free_solid_svg_icons_faPencilAlt__WEBPACK_IMPORTED_MODULE_13__.faPencilAlt,
     size: "lg"
   })), edit ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "icon",
     onClick: cancelEdit,
     onKeyPress: cancelEdit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
-    icon: _fortawesome_free_solid_svg_icons_faBan__WEBPACK_IMPORTED_MODULE_12__.faBan,
+    icon: _fortawesome_free_solid_svg_icons_faBan__WEBPACK_IMPORTED_MODULE_14__.faBan,
     size: "lg"
   })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "icon",
     onClick: openModal,
     onKeyPress: cancelEdit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
-    icon: _fortawesome_free_solid_svg_icons_faTrashAlt__WEBPACK_IMPORTED_MODULE_13__.faTrashAlt,
+    icon: _fortawesome_free_solid_svg_icons_faTrashAlt__WEBPACK_IMPORTED_MODULE_15__.faTrashAlt,
     size: "lg"
   })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_organisms_ConfirmModal__WEBPACK_IMPORTED_MODULE_5__.default, {
     confirm: confirm,
