@@ -51,23 +51,18 @@ class LoginWidget(QWidget):
 
     @Slot()
     def on_pw_login_clicked(self):
-        try:
-            token = request_token(self.username.text(), self.password.text())
-
-        except PermissionError:
+        if not login(self.username.text(), self.password.text()):
             login_error = QMessageBox(QMessageBox.Critical, 'Invalid Credentials',
                                       f'The provided username and password are not valid. Please try again.',
                                       QMessageBox.Ok)
             login_error.show()
             return login_error.exec()
 
-        set_token(token)
-
         self.hide()
         self.username.clear()
         self.password.clear()
         self.window_main.resize(800, 500)
-        self.window_main.is_connected(True)
+        self.window_main.set_connected(True)
         self.window_main.show()
 
     @Slot()

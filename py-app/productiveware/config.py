@@ -62,12 +62,11 @@ def clear_target_folders():
 	config["target_folders"] = []
 	_write_config(config)
 
-def get_token():
-	"""Get token, raise ValueError if not found."""
+def get_cookie():
 	config = _read_config()
-	return config["token"]
+	return config.get("cookie", None)
 
-def set_token(token):
+def set_cookie(cookie):
 	config = _read_config()
-	config["token"] = token
+	config["cookie"] = cookie
 	_write_config(config)

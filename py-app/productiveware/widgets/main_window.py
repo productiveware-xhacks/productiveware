@@ -7,7 +7,7 @@ from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import *
 
 from productiveware import encryption
-from productiveware.client import base_url
+from productiveware.client import base_url, check_cookie
 from productiveware.config import *
 from productiveware.widgets.log import LogWidget
 from productiveware.widgets.login import LoginWidget
@@ -30,7 +30,7 @@ class MainWidget(QMainWindow):
         # Backend stuff
         self.status = QStatusBar()
         self.status_refresh = QPushButton('Refresh Connection')
-        self.token = get_token()
+        self.cookie = None
 
         self.set_connected(self._check_connection())
 
@@ -96,7 +96,7 @@ class MainWidget(QMainWindow):
         self.window_log = LogWidget()
         self.window_login = LoginWidget(self)
 
-        if self.token is None:
+        if not check_cookie():
             self.window_login.setFixedSize(300, 150)
             self.window_login.show()
 
@@ -110,7 +110,7 @@ class MainWidget(QMainWindow):
 
     @Slot()
     def on_pw_logout_clicked(self):
-        set_token(None)
+        set_cookie(None)
         self.hide()
         self.window_login.show()
 
