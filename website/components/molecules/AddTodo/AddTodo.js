@@ -15,7 +15,9 @@ export default function AddTodo() {
 
   const handleAddTodo = () => {
     if (text) {
-      dispatch(attemptAddTodo(text));
+      let date = Date.now();
+      console.log(date)
+      dispatch(attemptAddTodo(text, date));
       setText('');
     }
   };
