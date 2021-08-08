@@ -151,7 +151,7 @@ class MainWidget(QMainWindow):
 
     @Slot()
     def on_decrypt_select_clicked(self):
-        browser = QFileDialog(self, filter='.pw_encrypt')
+        browser = QFileDialog(self, filter='*.pw_encrypt')
         browser.setFileMode(QFileDialog.ExistingFiles)
         
         if browser.exec():
