@@ -32,7 +32,7 @@ class MainWidget(QMainWindow):
         self.status_refresh = QPushButton('Refresh Connection')
         self.token = get_token()
 
-        self.is_connected(self._check_connection())
+        self.set_connected(self._check_connection())
 
         # Profile specific elements
         self.pw_profile = QPushButton('View Todo List')
@@ -184,7 +184,7 @@ class MainWidget(QMainWindow):
     def on_decrypt_log_clicked(self):
         self.window_log.show()
 
-    def is_connected(self, connected: bool):
+    def set_connected(self, connected: bool):
         if connected:
             self.status.setStyleSheet('QStatusBar { color: green; }')
             self.status.showMessage('Connected')
@@ -204,12 +204,12 @@ class MainWidget(QMainWindow):
         try:
             # Not the greatest solution but it works
             requests.get(test_url)
-            self.is_connected(True)
+            self.set_connected(True)
             self.status_refresh.setEnabled(False)
             return True
 
         except requests.exceptions.ConnectionError:
-            self.is_connected(False)
+            self.set_connected(False)
             not_connected = QMessageBox(QMessageBox.Critical, 'Unable to Connect',
                                         'The productiveware client was unable to connect to the server. ' +
                                         'Please check your internet connection and click on "Refresh Connection".',
