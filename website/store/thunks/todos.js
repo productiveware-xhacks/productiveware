@@ -17,8 +17,8 @@ export const attemptGetTodos = () => dispatch =>
     })
     .catch(dispatchError(dispatch));
 
-export const attemptAddTodo = text => dispatch =>
-  postTodo({ text })
+export const attemptAddTodo = (text, dueAt) => dispatch =>
+  postTodo({ text, due_at: dueAt })
     .then(data => {
       const todo = R.omit(['Id'], R.assoc('id', data.todo._id, snakeToCamelCase(data.todo)));
 
