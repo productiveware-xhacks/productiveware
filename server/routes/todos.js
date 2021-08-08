@@ -79,6 +79,23 @@ router.put('/complete', requireAuth, (req, res) => {
   });
 });
 
+router.put('/encrypt', requireAuth, (req, res) => {
+  Todo.findById(req.body.id, { __v: 0, user: 0 }, (err, todo) => {
+    if (err) {
+      res.status(400).send({ message: 'Encrypted todo failed', err });
+    } else {
+      todo.encrypted = !todo.encrypted;
+      todo.save((err, savedTodo) => {
+        if (err) {
+          res.status(400).send({ message: 'Encrypted todo failed', err });
+        } else {
+          res.send({ message: 'Toggled encrypt todo successfully', todo: savedTodo });
+        }
+      });
+    }
+  });
+});
+
 router.put('/', requireAuth, (req, res) => {
   Todo.findById(req.body.id, { __v: 0, user: 0 }, (err, todo) => {
     if (err) {
