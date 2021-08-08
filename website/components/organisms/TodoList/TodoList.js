@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import * as R from 'ramda';
 
 import Todo from '_molecules/Todo';
+import Column from 'react-bulma-companion/lib/Column';
+import Columns from 'react-bulma-companion/lib/Columns';
 
 /**
  * This function subscribes to the store, specifically the list of todos, on any change, 
@@ -15,7 +17,13 @@ export default function TodoList() {
   /// this here is responsible for building the list of Todos and putting them onto the screen
   return (
     <ul className="todo-list">
-      {R.reverse(todos).map(todo => <Todo key={todo.id} {...todo} />)}
+      {todos.length
+        ? R.reverse(todos).map(todo => <Todo key={todo.id} {...todo} />)
+        : <Columns className="no-todo" gapless>
+            <Column size="12">
+              <p>No todos, you're all set!</p>
+            </Column>
+          </Columns>}
     </ul>
   );
 }
