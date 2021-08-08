@@ -7,6 +7,9 @@ import {
 
 import { LOGOUT_USER } from '_actions/user';
 
+/**
+ * this updates the state of all the to-dos within the store, this is also a reducer which removes any unnecessary fields.
+ */
 export function todo(state = {
   completed: false,
 }, action) {

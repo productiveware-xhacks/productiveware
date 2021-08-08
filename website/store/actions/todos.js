@@ -5,12 +5,13 @@ export const UPDATE_TODO = 'UPDATE_TODO';
 export const REMOVE_TODO = 'REMOVE_TODO';
 export const INCREMENT_TODO_ID = 'INCREMENT_TODO_ID';
 
+// these are the actions dispatched to the react store
 export const setTodos = todos => ({
   type: SET_TODOS,
   todos,
 });
 
-export const addTodo = ({ id, text, createdAt, dueAt }) => ({
+// these are the actions dispatched to the react store
   type: ADD_TODO,
   createdAt,
   dueAt,
@@ -18,11 +19,13 @@ export const addTodo = ({ id, text, createdAt, dueAt }) => ({
   text
 });
 
+// these are the actions dispatched to the react store
 export const toggleCompleteTodo = id => ({
   type: TOGGLE_COMPLETE_TODO,
   id,
 });
 
+// these are the actions dispatched to the react store
 export const updateTodo = ({ id, text, updatedAt }) => ({
   type: UPDATE_TODO,
   updatedAt,
@@ -30,6 +33,7 @@ export const updateTodo = ({ id, text, updatedAt }) => ({
   text,
 });
 
+// these are the actions dispatched to the react store
 export const removeTodo = id => ({
   type: REMOVE_TODO,
   id,
