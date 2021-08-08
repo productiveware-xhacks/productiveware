@@ -22,8 +22,9 @@ export default function WelcomePage() {
       <Section>
         <Container>
           <Title size="1">
-            Welcome Page!
+            Productiveware
           </Title>
+          <p>The app that puts your personal files on the line in order to be productive.</p>
         </Container>
       </Section>
     </div>

@@ -49,7 +49,7 @@ export default function Navigation({ pathname }) {
             component={Link}
           >
             <Title className="logo" size="3">
-              MERN Boilerplate
+              Productiveware
             </Title>
           </Navbar.Item>
           <div className="navbar-brand-right">
