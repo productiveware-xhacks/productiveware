@@ -2,7 +2,7 @@ import requests
 import webbrowser
 from os.path import dirname, exists, join, realpath
 from typing import List
-from PySide6.QtCore import Qt, Slot
+from PySide6.QtCore import QTimer, Qt, Slot
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import *
 
@@ -52,6 +52,9 @@ class MainWidget(QMainWindow):
         # Encryption/decryption elements
         self.decrypt_select = QPushButton('Decrypt file...')
         self.decrypt_log = QPushButton('View encryption log...')
+        self.timer = QTimer()
+        self.delay = 5000
+        self.timer.timeout.connect(self.on_timer_timeout)
 
         # Save state elements
         self.save_list = QPushButton('Save')
@@ -101,8 +104,15 @@ class MainWidget(QMainWindow):
             self.window_login.show()
 
         else:
+            self.timer.start(self.delay)
             self.resize(800, 500)
             self.show()
+
+    @Slot()
+    def on_timer_timeout(self):
+        # repeated code goes here
+        
+        self.timer.start(self.delay)
 
     @Slot()
     def on_pw_profile_clicked(self):
