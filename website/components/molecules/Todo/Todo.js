@@ -138,6 +138,7 @@ Todo.propTypes = {
   text: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
   createdAt: PropTypes.string.isRequired,
+  dueAt: PropTypes.string.isRequired,
   updatedAt: PropTypes.string,
 };
 
