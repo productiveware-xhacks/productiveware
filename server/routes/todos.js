@@ -2,6 +2,21 @@ const express = require('express');
 const { requireAuth } = require('./middleware');
 const { Todo } = require('../database/schemas');
 
+/**
+ * this function takes a date string and determines whether or not its valid and can be sent through
+ * 
+ * @param {String} date a date string
+ * @returns boolean
+ */
+ const isValidDate = date => {
+  let d = new Date(date);
+
+  let isValid = d.getTime() === d.getTime();
+  let inPast = d > new Date();
+
+  return isValid && inPast;
+}
+
 const router   = express.Router();
 
 module.exports = router;
@@ -21,13 +36,17 @@ router.post('/', requireAuth, (req, res) => {
 
   const newTodo = Todo(req.body);
 
-  newTodo.save((err, savedTodo) => {
-    if (err) {
-      res.status(400).send({ message: 'Create todo failed', err });
-    } else {
-      res.send({ message: 'Todo created successfully', todo: savedTodo });
-    }
-  });
+  if (isValidDate(req.body.due_at)) {
+    newTodo.save((err, savedTodo) => {
+      if (err) {
+        res.status(400).send({ message: 'Create todo failed', err });
+      } else {
+        res.send({ message: 'Todo created successfully', todo: savedTodo });
+      }
+    });
+  } else {
+    res.status(400).send({ message: 'Date set in the past' });
+  }
 });
 
 router.put('/complete', requireAuth, (req, res) => {
