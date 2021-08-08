@@ -210,6 +210,7 @@ class MainWidget(QMainWindow):
 
     @Slot()
     def on_decrypt_log_clicked(self):
+        self.window_log.resize(700, 400)
         self.window_log.show()
 
     def set_connected(self, connected: bool):
