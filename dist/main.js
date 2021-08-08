@@ -3334,6 +3334,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "postTodo": () => (/* binding */ postTodo),
 /* harmony export */   "getTodos": () => (/* binding */ getTodos),
+/* harmony export */   "overdueTodo": () => (/* binding */ overdueTodo),
 /* harmony export */   "putToggleCompleteTodo": () => (/* binding */ putToggleCompleteTodo),
 /* harmony export */   "putTodo": () => (/* binding */ putTodo),
 /* harmony export */   "deleteTodo": () => (/* binding */ deleteTodo)
@@ -3345,6 +3346,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const postTodo = info => superagent__WEBPACK_IMPORTED_MODULE_0___default().post('/api/todos').send(info).then(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleSuccess).catch(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleError);
 const getTodos = () => superagent__WEBPACK_IMPORTED_MODULE_0___default().get('/api/todos').then(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleSuccess).catch(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleError);
+const overdueTodo = () => superagent__WEBPACK_IMPORTED_MODULE_0___default().get('/api/todos/overdue').send().then(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleSuccess).catch(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleError);
 const putToggleCompleteTodo = info => superagent__WEBPACK_IMPORTED_MODULE_0___default().put('/api/todos/complete').send(info).then(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleSuccess).catch(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleError);
 const putTodo = info => superagent__WEBPACK_IMPORTED_MODULE_0___default().put('/api/todos').send(info).then(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleSuccess).catch(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleError);
 const deleteTodo = info => superagent__WEBPACK_IMPORTED_MODULE_0___default().delete('/api/todos').send(info).then(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleSuccess).catch(_utils_api__WEBPACK_IMPORTED_MODULE_1__.handleError);
@@ -3848,6 +3850,7 @@ function Todo({
   dueAt
 }) {
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
+  const overdue = new Date() > new Date(dueAt);
   const [currentText, setCurrentText] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(text);
   const [edit, setEdit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [confirm, setConfirm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -3918,7 +3921,11 @@ function Todo({
     className: "level-left"
   }, !!updatedAt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", null, `edited ${updatedMessage}`)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "level-right"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", null, `due at: ${new Date(dueAt)}`)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", {
+    style: {
+      color: !overdue ? "black" : "red"
+    }
+  }, `due at: ${new Date(dueAt)}`)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "level-right"
   }, edit ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "icon space-right",
@@ -5365,12 +5372,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pick.js");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/reverse.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pick.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/reverse.js");
 /* harmony import */ var _molecules_Todo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! _molecules/Todo */ "./website/components/molecules/Todo/index.js");
 /* harmony import */ var react_bulma_companion_lib_Column__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bulma-companion/lib/Column */ "./node_modules/react-bulma-companion/lib/Column/index.js");
 /* harmony import */ var react_bulma_companion_lib_Columns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bulma-companion/lib/Columns */ "./node_modules/react-bulma-companion/lib/Columns/index.js");
+/* harmony import */ var react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bulma-companion/lib/Box */ "./node_modules/react-bulma-companion/lib/Box/index.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -5381,24 +5390,27 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 /**
  * This function subscribes to the store, specifically the list of todos, on any change, 
  * it will take the list of todos and try to render them on the screen
+ * @param {Object} overdue a boolean to detemine the text displayed
  * @returns A unordered list tag filled with todos
  */
 
-function TodoList() {
+function TodoList({
+  overdue
+}) {
   const {
     todos
-  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(ramda__WEBPACK_IMPORTED_MODULE_5__.default(['todos'])); /// this here is responsible for building the list of Todos and putting them onto the screen
+  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(ramda__WEBPACK_IMPORTED_MODULE_6__.default(['todos'])); /// this here is responsible for building the list of Todos and putting them onto the screen
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
     className: "todo-list"
-  }, todos.length ? ramda__WEBPACK_IMPORTED_MODULE_6__.default(todos).map(todo => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_molecules_Todo__WEBPACK_IMPORTED_MODULE_2__.default, _extends({
+  }, todos.length ? ramda__WEBPACK_IMPORTED_MODULE_7__.default(todos).map(todo => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_molecules_Todo__WEBPACK_IMPORTED_MODULE_2__.default, _extends({
     key: todo.id
   }, todo))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Columns__WEBPACK_IMPORTED_MODULE_4__.default, {
     className: "no-todo",
     gapless: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Column__WEBPACK_IMPORTED_MODULE_3__.default, {
     size: "12"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "No todos, you're all set!"))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "No ", overdue ? "overdue" : "", " todos, you're all set!")))));
 }
 
 /***/ }),
@@ -5433,13 +5445,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! connected-react-router */ "./node_modules/connected-react-router/esm/actions.js");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pick.js");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/isEmpty.js");
+/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! connected-react-router */ "./node_modules/connected-react-router/esm/actions.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pick.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/isEmpty.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/identity.js");
 /* harmony import */ var react_bulma_companion_lib_Section__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bulma-companion/lib/Section */ "./node_modules/react-bulma-companion/lib/Section/index.js");
 /* harmony import */ var react_bulma_companion_lib_Container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bulma-companion/lib/Container */ "./node_modules/react-bulma-companion/lib/Container/index.js");
 /* harmony import */ var react_bulma_companion_lib_Title__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bulma-companion/lib/Title */ "./node_modules/react-bulma-companion/lib/Title/index.js");
-/* harmony import */ var react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bulma-companion/lib/Box */ "./node_modules/react-bulma-companion/lib/Box/index.js");
+/* harmony import */ var react_bulma_companion_lib_Columns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bulma-companion/lib/Columns */ "./node_modules/react-bulma-companion/lib/Columns/index.js");
+/* harmony import */ var react_bulma_companion_lib_Column__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bulma-companion/lib/Column */ "./node_modules/react-bulma-companion/lib/Column/index.js");
+/* harmony import */ var _organisms_TodoList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! _organisms/TodoList */ "./website/components/organisms/TodoList/index.js");
+/* harmony import */ var _thunks_todos__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! _thunks/todos */ "./website/store/thunks/todos.js");
+
+
+
 
 
 
@@ -5452,38 +5471,31 @@ function HomePage() {
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   const {
     user
-  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(ramda__WEBPACK_IMPORTED_MODULE_6__.default(['user']));
+  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(ramda__WEBPACK_IMPORTED_MODULE_9__.default(['user']));
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (ramda__WEBPACK_IMPORTED_MODULE_7__.default(user)) {
-      dispatch((0,connected_react_router__WEBPACK_IMPORTED_MODULE_8__.push)('/login'));
+    if (ramda__WEBPACK_IMPORTED_MODULE_10__.default(user)) {
+      dispatch((0,connected_react_router__WEBPACK_IMPORTED_MODULE_11__.push)('/login'));
+    } else {
+      dispatch((0,_thunks_todos__WEBPACK_IMPORTED_MODULE_8__.attemptGetOverdueTodo)()).catch(ramda__WEBPACK_IMPORTED_MODULE_12__.default).then(() => setLoading(false));
     }
   }, []);
-  const h6FontSize = {
-    fontSize: "1.75em"
-  };
-  const h3FontSize = {
-    fontSize: "1.2em"
-  };
-  const pFontSize = {
-    fontSize: "1.12em"
-  };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  return !loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "home-page page"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Section__WEBPACK_IMPORTED_MODULE_2__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Container__WEBPACK_IMPORTED_MODULE_3__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Title__WEBPACK_IMPORTED_MODULE_4__.default, {
     size: "1"
-  }, "Home Page"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
-    style: h6FontSize
-  }, "Welcome to our project for XHacks 2021"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h6", {
-    style: h3FontSize
-  }, "The goal of this program is to make you productive. How? Well if you're not your files will get encrypted!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    style: pFontSize
-  }, "This program is a MERN stack with a python-based client-side application which does the encryption and decryption of files."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    style: pFontSize
-  }, "Your list of todos are stored on the backend MongoDB server for ease of access from a mobile device."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    style: pFontSize
-  }, "Find the source code ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://github.com/productiveware-xhacks/productiveware"
-  }, "here."))))));
+  }, "Home Page"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Section__WEBPACK_IMPORTED_MODULE_2__.default, {
+    className: "todo-section"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Title__WEBPACK_IMPORTED_MODULE_4__.default, {
+    size: "1",
+    className: "has-text-centered"
+  }, "Overdue Todo List:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Columns__WEBPACK_IMPORTED_MODULE_5__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Column__WEBPACK_IMPORTED_MODULE_6__.default, {
+    size: "8",
+    offset: "2",
+    className: "has-text-left"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_organisms_TodoList__WEBPACK_IMPORTED_MODULE_7__.default, {
+    overdue: true
+  })))))));
 }
 
 /***/ }),
@@ -5825,12 +5837,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! connected-react-router */ "./node_modules/connected-react-router/esm/actions.js");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pick.js");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/isEmpty.js");
+/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! connected-react-router */ "./node_modules/connected-react-router/esm/actions.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pick.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/isEmpty.js");
 /* harmony import */ var react_bulma_companion_lib_Section__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bulma-companion/lib/Section */ "./node_modules/react-bulma-companion/lib/Section/index.js");
 /* harmony import */ var react_bulma_companion_lib_Container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bulma-companion/lib/Container */ "./node_modules/react-bulma-companion/lib/Container/index.js");
 /* harmony import */ var react_bulma_companion_lib_Title__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bulma-companion/lib/Title */ "./node_modules/react-bulma-companion/lib/Title/index.js");
+/* harmony import */ var react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bulma-companion/lib/Box */ "./node_modules/react-bulma-companion/lib/Box/index.js");
+
 
 
 
@@ -5842,17 +5856,38 @@ function WelcomePage() {
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   const {
     user
-  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(ramda__WEBPACK_IMPORTED_MODULE_5__.default(['user']));
+  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(ramda__WEBPACK_IMPORTED_MODULE_6__.default(['user']));
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!ramda__WEBPACK_IMPORTED_MODULE_6__.default(user)) {
-      dispatch((0,connected_react_router__WEBPACK_IMPORTED_MODULE_7__.push)('/home'));
+    if (!ramda__WEBPACK_IMPORTED_MODULE_7__.default(user)) {
+      dispatch((0,connected_react_router__WEBPACK_IMPORTED_MODULE_8__.push)('/home'));
     }
   }, []);
+  const h6FontSize = {
+    fontSize: "1.75em"
+  };
+  const h3FontSize = {
+    fontSize: "1.2em"
+  };
+  const pFontSize = {
+    fontSize: "1.12em"
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "welcome-page page"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Section__WEBPACK_IMPORTED_MODULE_2__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Container__WEBPACK_IMPORTED_MODULE_3__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Title__WEBPACK_IMPORTED_MODULE_4__.default, {
     size: "1"
-  }, "Productiveware"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "The app that puts your personal files on the line in order to be productive."))));
+  }, "Productiveware"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
+    style: h6FontSize
+  }, "Welcome to our project for XHacks 2021"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h6", {
+    style: h3FontSize
+  }, "The goal of this program is to make you productive. How? Well if you're not your files will get encrypted!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    style: pFontSize
+  }, "This program is a MERN stack with a python-based client-side application which does the encryption and decryption of files."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    style: pFontSize
+  }, "Your list of todos are stored on the backend MongoDB server for ease of access from a mobile device."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    style: pFontSize
+  }, "Find the source code ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://github.com/productiveware-xhacks/productiveware"
+  }, "here."))))));
 }
 
 /***/ }),
@@ -6628,6 +6663,7 @@ const attemptLogout = () => dispatch => (0,_api_auth__WEBPACK_IMPORTED_MODULE_2_
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "attemptGetTodos": () => (/* binding */ attemptGetTodos),
+/* harmony export */   "attemptGetOverdueTodo": () => (/* binding */ attemptGetOverdueTodo),
 /* harmony export */   "attemptAddTodo": () => (/* binding */ attemptAddTodo),
 /* harmony export */   "attemptToggleCompleteTodo": () => (/* binding */ attemptToggleCompleteTodo),
 /* harmony export */   "attemptUpdateTodo": () => (/* binding */ attemptUpdateTodo),
@@ -6653,6 +6689,17 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 const attemptGetTodos = () => dispatch => (0,_api_todos__WEBPACK_IMPORTED_MODULE_1__.getTodos)().then(data => {
+  const todos = ramda__WEBPACK_IMPORTED_MODULE_4__.default(todo => ramda__WEBPACK_IMPORTED_MODULE_5__.default(['Id'], ramda__WEBPACK_IMPORTED_MODULE_6__.default('id', todo._id, (0,json_style_converter_es5__WEBPACK_IMPORTED_MODULE_0__.snakeToCamelCase)(todo))), data.todos);
+  dispatch((0,_actions_todos__WEBPACK_IMPORTED_MODULE_2__.setTodos)(todos));
+  return data.todos;
+}).catch((0,_utils_api__WEBPACK_IMPORTED_MODULE_3__.dispatchError)(dispatch));
+/**
+ * this function makes a call to the backend API to get the list of all todos,
+ * it then updates the list of to-dos within the react store
+ * @returns a list of unformatted todos
+ */
+
+const attemptGetOverdueTodo = () => dispatch => (0,_api_todos__WEBPACK_IMPORTED_MODULE_1__.overdueTodo)().then(data => {
   const todos = ramda__WEBPACK_IMPORTED_MODULE_4__.default(todo => ramda__WEBPACK_IMPORTED_MODULE_5__.default(['Id'], ramda__WEBPACK_IMPORTED_MODULE_6__.default('id', todo._id, (0,json_style_converter_es5__WEBPACK_IMPORTED_MODULE_0__.snakeToCamelCase)(todo))), data.todos);
   dispatch((0,_actions_todos__WEBPACK_IMPORTED_MODULE_2__.setTodos)(todos));
   return data.todos;
