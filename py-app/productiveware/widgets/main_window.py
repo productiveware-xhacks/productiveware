@@ -6,6 +6,7 @@ from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import *
 
+from productiveware import encryption
 from productiveware.client import base_url
 from productiveware.config import *
 from productiveware.widgets.log import LogWidget
@@ -67,6 +68,7 @@ class MainWidget(QMainWindow):
         self.dir_add.clicked.connect(self.on_dir_add_clicked)
         self.dir_browse.clicked.connect(self.on_dir_browse_clicked)
         self.dir_remove.clicked.connect(self.on_dir_remove_clicked)
+        self.decrypt_select.clicked.connect(self.on_decrypt_select_clicked)
         self.status_refresh.clicked.connect(self.on_status_refresh_clicked)
         self.save_list.clicked.connect(self.on_save_list_clicked)
         self.decrypt_log.clicked.connect(self.on_decrypt_log_clicked)
@@ -146,6 +148,15 @@ class MainWidget(QMainWindow):
         if current is not None:
             remove_target_folder(current.text())
             self.dir_list.takeItem(self.dir_list.row(current))
+
+    @Slot()
+    def on_decrypt_select_clicked(self):
+        browser = QFileDialog(self, filter='.pw_encrypt')
+        browser.setFileMode(QFileDialog.ExistingFiles)
+        
+        if browser.exec():
+            for target in browser.selectedFiles():
+                encryption.decrypt_file(target)
 
     @Slot()
     def on_status_refresh_clicked(self):
