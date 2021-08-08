@@ -61,3 +61,13 @@ def clear_target_folders():
 	config = _read_config()
 	config["target_folders"] = []
 	_write_config(config)
+
+def get_token():
+	"""Get token, raise ValueError if not found."""
+	config = _read_config()
+	return config["token"]
+
+def set_token(token):
+	config = _read_config()
+	config["token"] = token
+	_write_config(config)
