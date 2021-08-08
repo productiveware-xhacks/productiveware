@@ -3,7 +3,7 @@ from typing import List
 from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (QFileDialog, QGridLayout, QLabel, QListWidget,
-                               QListWidgetItem, QMainWindow, QPushButton, QStatusBar, QWidget)
+                               QListWidgetItem, QMainWindow, QMessageBox, QPushButton, QStatusBar, QWidget)
 
 from ..config import *
 from .log import LogWidget
@@ -121,6 +121,13 @@ class MainWidget(QMainWindow):
     def on_save_list_clicked(self):
         items = self._get_list_items()
         clear_target_folders()
+
+        for item in items:
+            if not exists(item):
+                warn = QMessageBox(QMessageBox.Warning, 'Invalid Path', f'The entry "{item}" is invalid.',
+                                   QMessageBox.Ok)
+                warn.show()
+                return warn.exec()
 
         for item in items:
             add_target_folder(item)

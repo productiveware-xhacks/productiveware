@@ -1,12 +1,24 @@
 from . import encryption
+import socketio
+import requests
+from urllib import parse
+import re
 
 _websocket_url = "wss://productiveware.objectobject.ca:3500"
+_login_url = "http://productiveware.objectobject.ca:3000/api/auth/login"
 
-class Client:
-	def connect(self, token):
+def request_token(username, password):
+	response = requests.post(_login_url, json={"username": username, "password": password})
+	if response.status_code == 401:
+		raise PermissionError
+	elif response.status_code != 200:
+		raise RuntimeError(response.status_code)
+	cookie = parse.unquote(response.cookies.get("connect.sid"))
+	return re.search(":([^\.]+)", cookie).group(1)
 
-	def get_encryption_key(self):
-		"""Get the user's encryption key from the server.
-		
-		If none exists, generate a new one and send it to the server, then return it."""
-		return b"WkgJfErD7J_LqwX_hmAiFZfmVLOt1p7ZXpaCl0vdZgY=" # placeholder
+def connect(token):
+	pass
+
+def get_encryption_key():
+	"""Get the user's encryption key from the server."""
+	return b"WkgJfErD7J_LqwX_hmAiFZfmVLOt1p7ZXpaCl0vdZgY=" # placeholder
