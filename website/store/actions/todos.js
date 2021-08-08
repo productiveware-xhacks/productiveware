@@ -10,11 +10,12 @@ export const setTodos = todos => ({
   todos,
 });
 
-export const addTodo = ({ id, text, createdAt }) => ({
+export const addTodo = ({ id, text, createdAt, dueAt }) => ({
   type: ADD_TODO,
   createdAt,
+  dueAt,
   id,
-  text,
+  text
 });
 
 export const toggleCompleteTodo = id => ({
