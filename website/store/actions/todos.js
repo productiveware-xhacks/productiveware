@@ -12,11 +12,13 @@ export const setTodos = todos => ({
 });
 
 // these are the actions dispatched to the react store
+export const addTodo = ({ id, text, createdAt, dueAt, encrypted }) => ({
   type: ADD_TODO,
   createdAt,
   dueAt,
   id,
-  text
+  text,
+  encrypted
 });
 
 // these are the actions dispatched to the react store

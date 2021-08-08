@@ -19,6 +19,8 @@ export function todo(state = {
         id: { $set: action.id },
         text: { $set: action.text },
         createdAt: { $set: action.createdAt },
+        encrypted: { $set: action.encrypted },
+        dueAt: { $set: action.dueAt },
       });
     case TOGGLE_COMPLETE_TODO:
       return update(state, {
