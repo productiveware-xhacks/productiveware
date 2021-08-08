@@ -29,6 +29,7 @@ export default function GeneralProfile() {
 
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
+  const [encryptKey, _] = useState(user.encryptKey || '');
   const [bio, setBio] = useState(user.bio || '');
   const [profilePic, setProfilePic] = useState(user.profilePic || '');
   const [firstNameEdited, setFirstNameEdited] = useState(false);
@@ -181,6 +182,14 @@ export default function GeneralProfile() {
               {`Characters remaining: ${charactersRemaining}`}
             </Help>
           </Field>
+          <Label htmlFor="encrypt-key">
+              Encryption Key
+          </Label>
+          <Input
+            id="encrypt-key"
+            value={encryptKey}
+            readOnly
+          />
         </Column>
       </Columns>
       <hr className="separator" />
