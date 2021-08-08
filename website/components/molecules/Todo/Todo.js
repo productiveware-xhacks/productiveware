@@ -104,7 +104,7 @@ export default function Todo({ id, text, completed, createdAt, updatedAt, dueAt 
             </div>
             <div className="level-right">
               <small>
-                {`due at: ${dueAt}`}
+                {`due at: ${new Date(dueAt)}`}
               </small>
             </div>
             <div className="level-right">
