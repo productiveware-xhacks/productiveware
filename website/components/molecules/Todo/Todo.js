@@ -25,6 +25,8 @@ const fromNow = date => formatDistanceToNow(parseISO(date), { addSuffix: true })
 export default function Todo({ id, text, completed, createdAt, updatedAt, dueAt }) {
   const dispatch = useDispatch();
 
+  const overdue = new Date() > new Date(dueAt)
+
   const [currentText, setCurrentText] = useState(text);
   const [edit, setEdit] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -103,7 +105,7 @@ export default function Todo({ id, text, completed, createdAt, updatedAt, dueAt 
               )}
             </div>
             <div className="level-right">
-              <small>
+              <small style={{color: (!overdue ? "black" : "red")}}>
                 {`due at: ${new Date(dueAt)}`}
               </small>
             </div>
