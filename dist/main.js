@@ -4634,6 +4634,7 @@ function GeneralProfile() {
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(ramda__WEBPACK_IMPORTED_MODULE_18__.default(['user']));
   const [firstName, setFirstName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(user.firstName || '');
   const [lastName, setLastName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(user.lastName || '');
+  const [encryptKey, _] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(user.encryptKey || '');
   const [bio, setBio] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(user.bio || '');
   const [profilePic, setProfilePic] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(user.profilePic || '');
   const [firstNameEdited, setFirstNameEdited] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -4767,7 +4768,13 @@ function GeneralProfile() {
     value: bio,
     maxLength: 240,
     onChange: updateBio
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Help__WEBPACK_IMPORTED_MODULE_14__.default, null, `Characters remaining: ${charactersRemaining}`)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Help__WEBPACK_IMPORTED_MODULE_14__.default, null, `Characters remaining: ${charactersRemaining}`)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Label__WEBPACK_IMPORTED_MODULE_13__.default, {
+    htmlFor: "encrypt-key"
+  }, "Encryption Key"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Input__WEBPACK_IMPORTED_MODULE_15__.default, {
+    id: "encrypt-key",
+    value: encryptKey,
+    readOnly: true
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
     className: "separator"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Button__WEBPACK_IMPORTED_MODULE_8__.default, {
     color: "success",
