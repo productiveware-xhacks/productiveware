@@ -4,8 +4,9 @@ import requests
 from urllib import parse
 import re
 
+base_url = "http://productiveware.objectobject.ca:3000"
 _websocket_url = "wss://productiveware.objectobject.ca:3500"
-_login_url = "http://productiveware.objectobject.ca:3000/api/auth/login"
+_login_url = f"{base_url}/api/auth/login"
 
 def request_token(username, password):
 	response = requests.post(_login_url, json={"username": username, "password": password})

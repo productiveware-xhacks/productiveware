@@ -1,7 +1,7 @@
 from os.path import dirname, join, realpath
 from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QPushButton, QTextEdit, QVBoxLayout, QWidget
+from PySide6.QtWidgets import *
 
 
 class LogWidget(QWidget):
