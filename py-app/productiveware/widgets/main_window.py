@@ -1,36 +1,40 @@
+import requests
+import webbrowser
 from os.path import dirname, exists, join, realpath
 from typing import List
 from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import (QFileDialog, QGridLayout, QLabel, QListWidget,
-                               QListWidgetItem, QMainWindow, QMessageBox, QPushButton, QStatusBar, QWidget)
+from PySide6.QtWidgets import *
 
-from ..config import *
-from .log import LogWidget
+from productiveware.client import base_url
+from productiveware.config import *
+from productiveware.widgets.log import LogWidget
+from productiveware.widgets.login import LoginWidget
+
+
+todo_url = f'{base_url}/todo'
+test_url = f'{base_url}/api/user'
 
 
 class MainWidget(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        # Children widgets
-        self.window_log = LogWidget()
-        # * Postponed login functionality - uncomment lines below when login works
-        # self.widget_login = LoginWidget(self)
-        # self.widget_login.show()
-
         self.setWindowTitle('productiveware')
         self.setWindowIcon(
             QIcon(join(dirname(realpath(__file__)), 'res/productiveware.png')))
         widget = QWidget()
         layout = QGridLayout()
-        self.status = QStatusBar()
 
-        # TODO: make an account request to backend?
-        self.status.showMessage('Connecting...')
+        # Backend stuff
+        self.status = QStatusBar()
+        self.status_refresh = QPushButton('Refresh Connection')
+        self.token = get_token()
+
+        self.is_connected(self._check_connection())
 
         # Profile specific elements
-        self.pw_profile = QPushButton('Profile')
+        self.pw_profile = QPushButton('View Todo List')
         self.pw_logout = QPushButton('Log out')
 
         # Directory list elements
@@ -58,9 +62,12 @@ class MainWidget(QMainWindow):
         self.dir_list.currentItemChanged.connect(self.on_dir_list_item_changed)
 
         # Button events
+        self.pw_profile.clicked.connect(self.on_pw_profile_clicked)
+        self.pw_logout.clicked.connect(self.on_pw_logout_clicked)
         self.dir_add.clicked.connect(self.on_dir_add_clicked)
         self.dir_browse.clicked.connect(self.on_dir_browse_clicked)
         self.dir_remove.clicked.connect(self.on_dir_remove_clicked)
+        self.status_refresh.clicked.connect(self.on_status_refresh_clicked)
         self.save_list.clicked.connect(self.on_save_list_clicked)
         self.decrypt_log.clicked.connect(self.on_decrypt_log_clicked)
 
@@ -75,12 +82,35 @@ class MainWidget(QMainWindow):
         layout.addWidget(QLabel('Decryptions earned: '),
                          4, 3, Qt.AlignBottom)
         layout.addWidget(self.decrypt_select, 5, 3)
-        layout.addWidget(self.decrypt_log, 6, 3)
+        layout.addWidget(self.status_refresh, 6, 0, Qt.AlignLeft)
         layout.addWidget(self.save_list, 6, 2, Qt.AlignRight)
+        layout.addWidget(self.decrypt_log, 6, 3)
 
         widget.setLayout(layout)
         self.setCentralWidget(widget)
         self.setStatusBar(self.status)
+
+        # Children widgets
+        self.window_log = LogWidget()
+        self.window_login = LoginWidget(self)
+
+        if self.token is None:
+            self.window_login.setFixedSize(300, 150)
+            self.window_login.show()
+
+        else:
+            self.resize(800, 500)
+            self.show()
+
+    @Slot()
+    def on_pw_profile_clicked(self):
+        webbrowser.open(todo_url)
+
+    @Slot()
+    def on_pw_logout_clicked(self):
+        set_token(None)
+        self.hide()
+        self.window_login.show()
 
     @Slot()
     def on_dir_list_double_clicked(self, item: QListWidgetItem):
@@ -118,6 +148,11 @@ class MainWidget(QMainWindow):
             self.dir_list.takeItem(self.dir_list.row(current))
 
     @Slot()
+    def on_status_refresh_clicked(self):
+        if self._check_connection():
+            self.status_refresh.setEnabled(False)
+
+    @Slot()
     def on_save_list_clicked(self):
         items = self._get_list_items()
         clear_target_folders()
@@ -138,9 +173,36 @@ class MainWidget(QMainWindow):
     def on_decrypt_log_clicked(self):
         self.window_log.show()
 
+    def is_connected(self, connected: bool):
+        if connected:
+            self.status.setStyleSheet('QStatusBar { color: green; }')
+            self.status.showMessage('Connected')
+
+        else:
+            self.status.setStyleSheet('QStatusBar { color: red; }')
+            self.status.showMessage('Disconnected')
+
     def _get_list_items(self) -> List[str]:
         items = []
         for i in range(self.dir_list.count()):
             items.append(self.dir_list.item(i).text())
 
         return items
+
+    def _check_connection(self) -> bool:
+        try:
+            # Not the greatest solution but it works
+            requests.get(test_url)
+            self.is_connected(True)
+            self.status_refresh.setEnabled(False)
+            return True
+
+        except requests.exceptions.ConnectionError:
+            self.is_connected(False)
+            not_connected = QMessageBox(QMessageBox.Critical, 'Unable to Connect',
+                                        'The productiveware client was unable to connect to the server. ' +
+                                        'Please check your internet connection and click on "Refresh Connection".',
+                                        QMessageBox.Ok)
+            not_connected.show()
+            not_connected.exec()
+            return False
