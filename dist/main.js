@@ -5433,12 +5433,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! connected-react-router */ "./node_modules/connected-react-router/esm/actions.js");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pick.js");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/isEmpty.js");
+/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! connected-react-router */ "./node_modules/connected-react-router/esm/actions.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pick.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/isEmpty.js");
 /* harmony import */ var react_bulma_companion_lib_Section__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bulma-companion/lib/Section */ "./node_modules/react-bulma-companion/lib/Section/index.js");
 /* harmony import */ var react_bulma_companion_lib_Container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bulma-companion/lib/Container */ "./node_modules/react-bulma-companion/lib/Container/index.js");
 /* harmony import */ var react_bulma_companion_lib_Title__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bulma-companion/lib/Title */ "./node_modules/react-bulma-companion/lib/Title/index.js");
+/* harmony import */ var react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bulma-companion/lib/Box */ "./node_modules/react-bulma-companion/lib/Box/index.js");
+
 
 
 
@@ -5450,17 +5452,38 @@ function HomePage() {
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   const {
     user
-  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(ramda__WEBPACK_IMPORTED_MODULE_5__.default(['user']));
+  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(ramda__WEBPACK_IMPORTED_MODULE_6__.default(['user']));
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (ramda__WEBPACK_IMPORTED_MODULE_6__.default(user)) {
-      dispatch((0,connected_react_router__WEBPACK_IMPORTED_MODULE_7__.push)('/login'));
+    if (ramda__WEBPACK_IMPORTED_MODULE_7__.default(user)) {
+      dispatch((0,connected_react_router__WEBPACK_IMPORTED_MODULE_8__.push)('/login'));
     }
   }, []);
+  const h6FontSize = {
+    fontSize: "1.75em"
+  };
+  const h3FontSize = {
+    fontSize: "1.2em"
+  };
+  const pFontSize = {
+    fontSize: "1.12em"
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "home-page page"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Section__WEBPACK_IMPORTED_MODULE_2__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Container__WEBPACK_IMPORTED_MODULE_3__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Title__WEBPACK_IMPORTED_MODULE_4__.default, {
     size: "1"
-  }, "Home Page"))));
+  }, "Home Page"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
+    style: h6FontSize
+  }, "Welcome to our project for XHacks 2021"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h6", {
+    style: h3FontSize
+  }, "The goal of this program is to make you productive. How? Well if you're not your files will get encrypted!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bulma_companion_lib_Box__WEBPACK_IMPORTED_MODULE_5__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    style: pFontSize
+  }, "This program is a MERN stack with a python-based client-side application which does the encryption and decryption of files."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    style: pFontSize
+  }, "Your list of todos are stored on the backend MongoDB server for ease of access from a mobile device."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    style: pFontSize
+  }, "Find the source code ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://github.com/productiveware-xhacks/productiveware"
+  }, "here."))))));
 }
 
 /***/ }),
