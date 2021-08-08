@@ -97,6 +97,11 @@ export default function Todo({ id, text, completed, createdAt, updatedAt }) {
               )}
             </div>
             <div className="level-right">
+              <small>
+                {`due at: ${dueAt}`}
+              </small>
+            </div>
+            <div className="level-right">
               {edit ? (
                 <span className="icon space-right" onClick={handleUpdateTodo} onKeyPress={handleUpdateTodo}>
                   <FontAwesomeIcon icon={faSave} size="lg" />
