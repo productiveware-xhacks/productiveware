@@ -134,7 +134,6 @@ dmypy.json
 node_modules
 
 # App Packaged
-dist/
 build/
 *.zip
 
