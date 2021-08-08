@@ -1,8 +1,10 @@
-from . import config
 from cryptography.fernet import Fernet
 from pathlib import Path
 import random
 from datetime import datetime
+
+from productiveware import config
+from productiveware.client import get_encryption_key
 
 def _get_random_file():
 	target_folders = config.get_target_folders()
@@ -33,11 +35,11 @@ def encrypt_random_file(client):
 	config.add_to_log(f"[{datetime.now().isoformat()}] Encrypted {str(path)}")
 	return str(path)
 
-def decrypt_file(client, path_str):
+def decrypt_file(path_str):
 	"""Decrypt the file at the given path.
 	
 	Raise FileNotFoundError if the path is invalid, ValueError if the path is not a file, or cryptography.fernet.InvalidToken if the file isn't encrypted or couldn't be decrypted."""
-	fernet = Fernet(client.get_encryption_key())
+	fernet = Fernet(get_encryption_key())
 	path = Path(path_str)
 	if not path.exists():
 		raise FileNotFoundError
