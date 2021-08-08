@@ -65,12 +65,12 @@ router.post('/', requireAuth, (req, res) => {
 router.put('/complete', requireAuth, (req, res) => {
   Todo.findById(req.body.id, { __v: 0, user: 0 }, (err, todo) => {
     if (err) {
-      res.status(400).send({ message: 'Toggle todo failed', err });
+      res.status(400).send({ message: 'Complete todo failed', err });
     } else {
       todo.completed = !todo.completed;
       todo.save((err, savedTodo) => {
         if (err) {
-          res.status(400).send({ message: 'Toggle todo failed', err });
+          res.status(400).send({ message: 'Complete todo failed', err });
         } else {
           res.send({ message: 'Toggled complete todo successfully', todo: savedTodo });
         }
