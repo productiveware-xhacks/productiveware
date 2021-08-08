@@ -22,11 +22,11 @@ def _get_random_file():
 def generate_key():
 	return Fernet.generate_key()
 
-def encrypt_random_file(client):
+def encrypt_random_file():
 	"""Encrypt a random file in the target folders and return the path encrypted.
 	
 	Raise RuntimeError if no file was encrypted."""
-	fernet = Fernet(client.get_encryption_key())
+	fernet = Fernet(get_encryption_key())
 	path = _get_random_file()
 	file_bytes = path.read_bytes()
 	encrypted = fernet.encrypt(file_bytes)

@@ -1,3 +1,0 @@
-python-socketio==5.4.0
-tornado==6.1
-pymongo==3.12.0
