@@ -16,7 +16,7 @@ import ConfirmModal from '_organisms/ConfirmModal';
 
 const fromNow = date => formatDistanceToNow(parseISO(date), { addSuffix: true });
 
-export default function Todo({ id, text, completed, createdAt, updatedAt }) {
+export default function Todo({ id, text, completed, createdAt, updatedAt, dueAt}) {
   const dispatch = useDispatch();
 
   const [currentText, setCurrentText] = useState(text);
