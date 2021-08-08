@@ -4,3 +4,4 @@ pycparser==2.20
 PySide6==6.1.2
 shiboken6==6.1.2
 cx-Freeze==6.7
+win10toast==0.9

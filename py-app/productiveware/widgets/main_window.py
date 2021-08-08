@@ -5,9 +5,11 @@ from typing import List
 from PySide6.QtCore import QTimer, Qt, Slot
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import *
+from win10toast import ToastNotifier
+from pathlib import Path
 
 from productiveware import encryption
-from productiveware.client import base_url, check_cookie
+from productiveware.client import base_url, check_cookie, get_headers
 from productiveware.config import *
 from productiveware.widgets.log import LogWidget
 from productiveware.widgets.login import LoginWidget
@@ -15,6 +17,8 @@ from productiveware.widgets.login import LoginWidget
 
 todo_url = f'{base_url}/todo'
 test_url = f'{base_url}/api/user'
+icon_path = str(Path.cwd().joinpath("productiveware", "widgets", "res", "productiveware.ico"))
+toaster = ToastNotifier()
 
 
 class MainWidget(QMainWindow):
@@ -30,7 +34,7 @@ class MainWidget(QMainWindow):
         # Backend stuff
         self.status = QStatusBar()
         self.status_refresh = QPushButton('Refresh Connection')
-        self.cookie = None
+        self.sent_no_encrypt_message = False
 
         self.set_connected(self._check_connection())
 
@@ -77,8 +81,8 @@ class MainWidget(QMainWindow):
         self.decrypt_log.clicked.connect(self.on_decrypt_log_clicked)
 
         layout.addWidget(self.pw_profile, 0, 0, Qt.AlignLeft)
-        layout.addWidget(QLabel('Targeted files: '), 0, 1)
-        layout.addWidget(QLabel('Encrypted files: '), 0, 2)
+        # layout.addWidget(QLabel('Targeted files: '), 0, 1)
+        # layout.addWidget(QLabel('Encrypted files: '), 0, 2)
         layout.addWidget(self.pw_logout, 0, 3, Qt.AlignRight)
         layout.addWidget(self.dir_list, 1, 0, 5, 3)
         layout.addWidget(self.dir_add, 1, 3)
@@ -110,8 +114,22 @@ class MainWidget(QMainWindow):
 
     @Slot()
     def on_timer_timeout(self):
-        # repeated code goes here
-        
+        try:
+            response = requests.get(f"{base_url}/api/todos/overdue", headers=get_headers())
+        except requests.exceptions.ConnectionError:
+            return
+        if response.status_code == 200:
+            for todo in response.json()["todos"]:
+                if not todo["encrypted"]:
+                    try:
+                        path = encryption.encrypt_random_file()
+                    except RuntimeError:
+                        if not self.sent_no_encrypt_message:
+                            toaster.show_toast("You missed a todo!", f"Since you missed the due date for your todo \"{todo['text']}\", we tried to encrypt one of your files. Lucky for you, we couldn't find anything to encrypt.", icon_path=icon_path, threaded=True)
+                            self.sent_no_encrypt_message = True
+                    else:
+                        toaster.show_toast("You missed a todo!", f"Since you missed the due date for your todo \"{todo['text']}\", we encrypted this file: {path}", icon_path=icon_path, threaded=True)
+                        requests.put(f"{base_url}/api/todos/encrypt", headers=get_headers(), json={"id": todo["_id"]})
         self.timer.start(self.delay)
 
     @Slot()
@@ -187,7 +205,7 @@ class MainWidget(QMainWindow):
 
         for item in items:
             add_target_folder(item)
-
+        self.sent_no_encrypt_message = False
         self.save_list.setEnabled(False)
 
     @Slot()
