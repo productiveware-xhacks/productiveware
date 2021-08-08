@@ -1,7 +1,7 @@
 import { snakeToCamelCase } from 'json-style-converter/es5';
 import * as R from 'ramda';
 
-import { getTodos, postTodo, putToggleCompleteTodo, putTodo, deleteTodo } from '_api/todos';
+import { getTodos, postTodo, putToggleCompleteTodo, putTodo, deleteTodo, overdueTodo } from '_api/todos';
 import { setTodos, addTodo, toggleCompleteTodo, updateTodo, removeTodo } from '_actions/todos';
 
 import { dispatchError } from '_utils/api';
@@ -13,6 +13,22 @@ import { dispatchError } from '_utils/api';
  */
 export const attemptGetTodos = () => dispatch =>
   getTodos()
+    .then(data => {
+      const todos = R.map(todo =>
+        R.omit(['Id'], R.assoc('id', todo._id, snakeToCamelCase(todo))), data.todos);
+
+      dispatch(setTodos(todos));
+      return data.todos;
+    })
+    .catch(dispatchError(dispatch));
+
+/**
+ * this function makes a call to the backend API to get the list of all todos,
+ * it then updates the list of to-dos within the react store
+ * @returns a list of unformatted todos
+ */
+ export const attemptGetOverdueTodo = () => dispatch =>
+  overdueTodo()
     .then(data => {
       const todos = R.map(todo =>
         R.omit(['Id'], R.assoc('id', todo._id, snakeToCamelCase(todo))), data.todos);

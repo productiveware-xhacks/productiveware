@@ -13,6 +13,27 @@ router.get('/', (req, res) => {
   res.send({ message: 'User info successfully retreived', user });
 });
 
+router.get('/encryptkey', (req, res) => {  
+  User.find({ user: req.user.id }, { __v: 0, user: 0 }, (err, user) => {
+    if (err) {
+      res.status(400).send({ message: 'Get users failed', err });
+    } else {
+      res.send({ message: 'Retreived encryption key', encrypt_key: user.encrypt_key });
+    }
+  });
+});
+
+router.put('/encryptkey', requireAuth, (req, res) => {
+  const { newKey } = req.body;
+
+  User.findByIdAndUpdate({ _id: req.user._id }, { encrypt_key: newKey }, (err, user) => {
+    if (err) {
+      res.status(400).send({ err, message: 'Error updating encryption key' });
+    }
+    res.status(200).send({ message: 'Encryption key successfully updated', user: user.hidePassword() });
+  });
+});
+
 router.put('/password', requireAuth, (req, res) => {
   const { oldPassword, newPassword } = req.body;
 

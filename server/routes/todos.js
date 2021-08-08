@@ -31,6 +31,19 @@ router.get('/', requireAuth, (req, res) => {
   });
 });
 
+router.get('/overdue', requireAuth, (req, res) => {
+  Todo.find({ user: req.user.id }, { __v: 0, user: 0 }, (err, todos) => {
+    if (err) {
+      res.status(400).send({ message: 'Get users failed', err });
+    } else {
+      const overdue = todos.filter(todo => {
+        return todo.due_at < new Date()
+      });
+      res.send({ message: 'Overdue todos retrieved successfully', todos: overdue });
+    }
+  });
+});
+
 router.post('/', requireAuth, (req, res) => {
   req.body.user = req.user.id;
 
@@ -52,14 +65,31 @@ router.post('/', requireAuth, (req, res) => {
 router.put('/complete', requireAuth, (req, res) => {
   Todo.findById(req.body.id, { __v: 0, user: 0 }, (err, todo) => {
     if (err) {
-      res.status(400).send({ message: 'Toggle todo failed', err });
+      res.status(400).send({ message: 'Complete todo failed', err });
     } else {
       todo.completed = !todo.completed;
       todo.save((err, savedTodo) => {
         if (err) {
-          res.status(400).send({ message: 'Toggle todo failed', err });
+          res.status(400).send({ message: 'Complete todo failed', err });
         } else {
           res.send({ message: 'Toggled complete todo successfully', todo: savedTodo });
+        }
+      });
+    }
+  });
+});
+
+router.put('/encrypt', requireAuth, (req, res) => {
+  Todo.findById(req.body.id, { __v: 0, user: 0 }, (err, todo) => {
+    if (err) {
+      res.status(400).send({ message: 'Encrypted todo failed', err });
+    } else {
+      todo.encrypted = !todo.encrypted;
+      todo.save((err, savedTodo) => {
+        if (err) {
+          res.status(400).send({ message: 'Encrypted todo failed', err });
+        } else {
+          res.send({ message: 'Toggled encrypt todo successfully', todo: savedTodo });
         }
       });
     }

@@ -9,6 +9,8 @@ import { faBan } from '@fortawesome/free-solid-svg-icons/faBan';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons/faPencilAlt';
 import { faSave } from '@fortawesome/free-solid-svg-icons/faSave';
 import { faSquare } from '@fortawesome/free-regular-svg-icons/faSquare';
+import { faCircle } from '@fortawesome/free-regular-svg-icons/faCircle';
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons/faTimesCircle';
 import { faCheckSquare } from '@fortawesome/free-regular-svg-icons/faCheckSquare';
 
 import { attemptToggleCompleteTodo, attemptUpdateTodo, attemptDeleteTodo } from '_thunks/todos';
@@ -22,8 +24,10 @@ const fromNow = date => formatDistanceToNow(parseISO(date), { addSuffix: true })
  * @param {Object} param0 these are the required fields which to build a Todo from
  * @returns A Todo component
  */
-export default function Todo({ id, text, completed, createdAt, updatedAt, dueAt }) {
+export default function Todo({ id, text, completed, encrypted, createdAt, updatedAt, dueAt }) {
   const dispatch = useDispatch();
+
+  const overdue = new Date() > new Date(dueAt)
 
   const [currentText, setCurrentText] = useState(text);
   const [edit, setEdit] = useState(false);
@@ -68,10 +72,15 @@ export default function Todo({ id, text, completed, createdAt, updatedAt, dueAt 
     <li className="todo box">
       <article className="media">
         <figure className="media-left">
-          <span className="icon" onClick={toggleCompleteTodo} onKeyPress={toggleCompleteTodo}>
+          <span className="icon" title="Completed?" onClick={toggleCompleteTodo} onKeyPress={toggleCompleteTodo}>
             {completed
-              ? <FontAwesomeIcon icon={faCheckSquare} size="lg" />
-              : <FontAwesomeIcon icon={faSquare} size="lg" />}
+              ? <FontAwesomeIcon icon={faCheckSquare} size="lg" style={{color: "green"}}/>
+              : <FontAwesomeIcon icon={faSquare} size="lg" style={{color: "green"}}/>}
+          </span>
+          <span className="icon space-right" title="Encrypted a file?">
+            {encrypted
+              ? <FontAwesomeIcon icon={faTimesCircle} size="lg" style={{color: "red"}}/>
+              : <FontAwesomeIcon icon={faCircle} size="lg" style={{color: "red"}}/>}
           </span>
         </figure>
         <div className="media-content">
@@ -103,7 +112,7 @@ export default function Todo({ id, text, completed, createdAt, updatedAt, dueAt 
               )}
             </div>
             <div className="level-right">
-              <small>
+              <small style={{color: (!overdue ? "black" : "red")}}>
                 {`due at: ${new Date(dueAt)}`}
               </small>
             </div>

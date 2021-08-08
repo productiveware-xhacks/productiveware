@@ -15,6 +15,7 @@ const userSchema = new Schema({
   bio: { type: String, maxlength: 240 },
   created_at: { type: Date, default: Date.now, immutable: true },
   updated_at: { type: Date },
+  encrypt_key: { type: String, unique: true, default: "00000000000000000000000000000000" }
 }, { versionKey: false });
 
 if (process.env.NODE_ENV !== 'test') {
